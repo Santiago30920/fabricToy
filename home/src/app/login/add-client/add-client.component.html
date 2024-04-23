@@ -1,0 +1,64 @@
+<mat-dialog-content >
+    <mat-stepper #stepper [disableRipple]="true">
+        <mat-step #stepper>
+            <ng-template matStepLabel>Registrarse</ng-template>
+            <div class="container">
+                <div>
+                    <mat-form-field >
+                        <mat-label>Nombre</mat-label>
+                        <input matInput placeholder="Nombre"[(ngModel)]="user.name">
+                    </mat-form-field>
+                    <mat-form-field >
+                        <mat-label>Apellido</mat-label>
+                        <input matInput placeholder="Apellido"[(ngModel)]="user.lastName">
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field>
+                        <mat-label>Tipo de documento</mat-label>
+                        <mat-select [(ngModel)]="user.typeDocument">
+                            <mat-option value="C.C">Cedula Ciudadania</mat-option>
+                            <mat-option value="C.E">Cedula Extranjeria</mat-option>
+                            <mat-option value="T.I">Tarejeta Identidad</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    <mat-form-field >
+                        <mat-label>Número de documento</mat-label>
+                        <input matInput placeholder="Número Documento"[(ngModel)]="user.numberDocument">
+                    </mat-form-field>
+                </div>
+                <mat-form-field >
+                    <mat-label>Correo electronico</mat-label>
+                    <input matInput placeholder="Correo electronico"[(ngModel)]="user.mail">
+                </mat-form-field>
+                <div>
+                    <mat-form-field>
+                        <mat-label>Contraseña</mat-label>
+                        <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="user.password">
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                      </mat-form-field>
+                      <mat-form-field>
+                        <mat-label>Repetir Contraseña</mat-label>
+                        <input matInput [type]="hideRepeat ? 'password' : 'text'" [(ngModel)]="repeatPasswor"> 
+                        <button mat-icon-button matSuffix (click)="hideRepeat = !hideRepeat" [attr.aria-label]="'hideRepeat password'" [attr.aria-pressed]="hideRepeat">
+                          <mat-icon>{{hideRepeat ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                      </mat-form-field>
+                </div>
+            </div>
+            <div>
+                <button mat-flat-button color="primary" (click)="registrarUsuario(stepper)">Registrar</button>
+                <button mat-flat-button color="primary" mat-dialog-close>cerrar</button>
+            </div>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Finalizado</ng-template>
+            <p>Se registro de manera exitosa</p>
+            <div>
+                <button mat-flat-button color="primary" mat-dialog-close>cerrar</button>
+            </div>
+        </mat-step>
+    </mat-stepper>
+</mat-dialog-content>

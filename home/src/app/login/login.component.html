@@ -1,0 +1,19 @@
+<div class="container">
+    <mat-card>
+        <div class="content">
+            <h2>Inciar Sesión</h2>
+            <span class="p-float-label">
+                <input type="text" id="mail" pInputText [(ngModel)]="user.mail" />
+                <label for="mail">Correo</label>
+            </span>
+            <span class="p-float-label">
+                <p-password [(ngModel)]="user.password" [feedback]="false" [toggleMask]="true"></p-password>
+                <label for="password">Contraseña</label>
+            </span>
+            <br>
+            <button mat-flat-button color="primary" (click)="registerUserClient()">Registrase</button>
+            <button mat-flat-button color="primary" (click)="confirmar()">Iniciar Sesión</button>
+        </div>
+    </mat-card>
+</div>
+<p-toast></p-toast>

@@ -1,0 +1,29 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Esto asegura que el contenedor ocupe toda la altura de la pantalla */
+}
+
+mat-card{
+    width: 450px;
+    text-align: center;
+    .content{
+
+        .p-float-label{
+            width: 350px !important;
+            margin: 0 auto;
+            margin-top: 30px;
+        }
+        ::ng-deep .p-input-icon-right > .p-inputtext{
+            width: 350px !important;
+        }
+        input{
+            width: 100% !important;
+        }
+        button{
+            margin-left: 15px;
+            margin-bottom: 15px;
+        }
+    }
+}
