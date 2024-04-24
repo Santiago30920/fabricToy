@@ -59,6 +59,7 @@ export class AddClientComponent implements OnInit{
           backdropClass: 'backdropBackground',
           panelClass: 'custom-modalbox'
         });
+        this.user.rol = '3';
         this.userService.persistir(this.user).subscribe((data: any) => {
           if(data.status === ECode.OK){
             this.dialogSpinner.close();

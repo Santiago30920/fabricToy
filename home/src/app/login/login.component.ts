@@ -12,7 +12,8 @@ import { ESystem } from '../domain/enums/e-system';
 import { FormsModule } from '@angular/forms';
 import { PasswordModule } from 'primeng/password';
 import { MatButtonModule } from '@angular/material/button';
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -35,24 +36,28 @@ import {MatCardModule} from '@angular/material/card';
 export class LoginComponent implements OnInit {
 
   user: User;
-  constructor(private loginService: UserService, public dialog: MatDialog, private messageService: MessageService) {
+  constructor(private loginService: UserService, public dialog: MatDialog, private messageService: MessageService, public router: Router) {
     this.user = new User;
+    if (sessionStorage.getItem('user')) {
+      this.router.navigate(["home"]);
+    }
   }
 
   ngOnInit(): void {
   }
 
   confirmar() {
-    if(this.user.mail && this.user.password){
+    if (this.user.mail && this.user.password) {
       this.loginService.login(this.user).subscribe((response: any) => {
-        
+
         sessionStorage.setItem("user", JSON.stringify(response.data))
-      },(err: any) => {
+        this.router.navigate(["home"]);
+      }, (err: any) => {
         console.log(err)
-        this.messageService.add({ severity: ESystem.TOAST_ERROR, summary: ESystem.TOAST_ERROR, detail: 'Contraseña o correos invalidos'});
+        this.messageService.add({ severity: ESystem.TOAST_ERROR, summary: ESystem.TOAST_ERROR, detail: 'Contraseña o correos invalidos' });
       });
-    }else{
-      this.messageService.add({ severity: ESystem.TOAST_ERROR, summary: ESystem.TOAST_ERROR, detail: 'Se deben llenar todos los campos para iniciar sesión'});
+    } else {
+      this.messageService.add({ severity: ESystem.TOAST_ERROR, summary: ESystem.TOAST_ERROR, detail: 'Se deben llenar todos los campos para iniciar sesión' });
     }
   }
 

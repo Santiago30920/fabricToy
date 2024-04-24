@@ -24,7 +24,7 @@ export class UserService implements IGeneric{
       numberDocument: user.numberDocument,
       password: user.password,
       state: 1,
-      rol: 3
+      rol: user.rol
     }
     return this.http.post<User>(
       ESystem.URL_TEMP + EUser.CREATE_USER , payload)
