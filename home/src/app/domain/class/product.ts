@@ -7,6 +7,6 @@ export class Product extends Generic{
     quantity!: string;
     price!: string;
     state!: number;
-    img!: string[];
+    img: string[] = [];
     pdf!: string;
 }

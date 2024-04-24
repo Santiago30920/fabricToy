@@ -44,7 +44,8 @@ import { EditorModule } from 'primeng/editor';
     EditorModule
   ],
   templateUrl: './add-product.component.html',
-  styleUrl: './add-product.component.css'
+  styleUrl: './add-product.component.css',
+  providers: [MessageService]
 })
 export class AddProductComponent implements OnInit {
   uploadedFiles: any[] = [];
@@ -56,7 +57,7 @@ export class AddProductComponent implements OnInit {
  * Indica si los campos se pueden editar
  */
   disable = false;
-  iden!: boolean;
+  hidden!: boolean;
   //video
   video: boolean = false;
   //llamado al spinner
@@ -69,14 +70,14 @@ export class AddProductComponent implements OnInit {
   contributors: any[] = [];
   constructor(private messageService: MessageService, public dialogRef: MatDialogRef<AddProductComponent>,
     private productService: ProductService, @Inject(MAT_DIALOG_DATA) public data: any, public dialog: MatDialog) {
-    this.product = data.product;
+    this.product = data;
     //Determinando si es editar o persitir
     if (this.product.operacion === EOperations.EDITAR) {
       this.disable = true;
-      this.iden = true;
+      this.hidden = true;
       this.linkImages = [];
     } else {
-      this.iden = false;
+      this.hidden = false;
       this.disable = false;
     }
   }
@@ -90,7 +91,7 @@ export class AddProductComponent implements OnInit {
   */
   onUpload(event: any) {
     for (let file of event.files) {
-      console.log(file)
+      this.product.img.push(file.objectURL.changingThisBreaksApplicationSecurity);
     }
   }
   /**
@@ -100,22 +101,26 @@ export class AddProductComponent implements OnInit {
 
     switch (this.product.operacion) {
       case EOperations.PERSISTIR:
-        if (this.product.id && this.product.description && this.product.name && this.product.price && this.product.quantity) {
-          this.product.state = 1;
-          this.dialogSpinner = this.dialog.open(LoadComponent, {
-            disableClose: true,
-            backdropClass: 'backdropBackground',
-            panelClass: 'custom-modalbox'
-          });
-          this.productService.persistir(this.product).subscribe((data: any) => {
-            if (data.status === ECode.OK) {
+        if (this.product.description && this.product.name && this.product.price && this.product.quantity) {
+          if(this.product.img.length >= 3){
+            this.product.state = 1;
+            this.dialogSpinner = this.dialog.open(LoadComponent, {
+              disableClose: true,
+              backdropClass: 'backdropBackground',
+              panelClass: 'custom-modalbox'
+            });
+            this.productService.persistir(this.product).subscribe((data: any) => {
+              if (data.status === ECode.OK) {
+                this.dialogSpinner.close();
+                this.dialogRef.close(this.product);
+              }
+            }, (err: any) => {
+              this.messageService.add({ severity: ESystem.TOAST_ERROR, summary: ESystem.TOAST_ERROR, detail: err });
               this.dialogSpinner.close();
-              this.dialogRef.close(this.product);
-            }
-          }, (err: any) => {
-            this.messageService.add({ severity: ESystem.TOAST_ERROR, summary: ESystem.TOAST_ERROR, detail: err });
-            this.dialogSpinner.close();
-          });
+            });
+          }else{
+            this.messageService.add({ severity: ESystem.TOAST_WARN, summary: ESystem.TOAST_WARN, detail: 'Se debe subir al menos minimo una imagen' });
+          }
         } else {
           this.messageService.add({ severity: ESystem.TOAST_WARN, summary: ESystem.TOAST_WARN, detail: 'Todos los campos deben ser llenados antes de continuar' });
         }

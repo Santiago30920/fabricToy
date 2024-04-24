@@ -15,20 +15,53 @@ export class ProductService implements IGeneric{
   constructor(private http:HttpClient, private utilitiesService: UtilitiesService) { }
 
   persistir(product: Product){
+    let payload = {
+      name: product.name,
+      quantity: product.quantity, 
+      price:product.price, 
+      state: product.state, 
+      img1: product.img[0], 
+      img2: product.img[1], 
+      img3: product.img[2], 
+      pdf: product.pdf, 
+      description: product.pdf
+    }
     return this.http.post<Product>(
-      ESystem.URL_TEMP + EProduct.CREATE_PRODUCT , product)
+      ESystem.URL_TEMP + EProduct.CREATE_PRODUCT , payload)
     .pipe(catchError(this.utilitiesService.handleError));
   }
 
   editar(product: Product) {
+    let payload = {
+      name: product.name,
+      quantity: product.quantity, 
+      price:product.price, 
+      state: product.state, 
+      img1: product.img[0], 
+      img2: product.img[1], 
+      img3: product.img[2], 
+      pdf: product.pdf, 
+      description: product.pdf
+    }
     return this.http.patch<Product>(
-      ESystem.URL_TEMP + EProduct.UPDATE_PRODUCT + product.id, product)
+      ESystem.URL_TEMP + EProduct.UPDATE_PRODUCT + product.id, payload)
     .pipe(catchError(this.utilitiesService.handleError));
   }
   
   editarQuantityProduct(product: Product) {
+    let payload = {
+      name: product.name,
+      quantity: product.quantity, 
+      price:product.price, 
+      state: product.state, 
+      img1: product.img[0], 
+      img2: product.img[1], 
+      img3: product.img[2], 
+      pdf: product.pdf, 
+      description: product.pdf
+    }
     return this.http.patch<Product>(
-      ESystem.URL_TEMP + EProduct.UPDATE_QUANTITY_PRODUCT + product.id, product)
+      ESystem.URL_TEMP + EProduct.UPDATE_QUANTITY_PRODUCT + product.id, payload)
     .pipe(catchError(this.utilitiesService.handleError));
   }
 

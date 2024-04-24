@@ -4,67 +4,47 @@
     <h2  mat-dialog-title>Editar Producto</h2>
 }
 <mat-dialog-content>
-    <div class="video" *ngIf="video">
-        <iframe width="100%" height="400px" src="https://www.powtoon.com/embed/bY84mwJCc5U/" frameborder="0"
-            allowfullscreen></iframe>
-    </div>
     <mat-card>
         <div class="contenido">
             <mat-form-field appearance="fill" style="width: 100%;">
                 <mat-label>Nombre</mat-label>
                 <input matInput name="name" #name="ngModel" type="text" [(ngModel)]="product.name" required>
             </mat-form-field>
-            <p-editor [(ngModel)]="product.description" [style]="{'height':'120px'}" maxlength="100"></p-editor>
+            <mat-form-field appearance="fill" style="width: 100%;">
+                <mat-label>Descripcion</mat-label>
+                <textarea  matInput type="text" [(ngModel)]="product.description" required></textarea>
+            </mat-form-field>
             <div class="inputs">
                 <mat-form-field appearance="fill" class="espacio">
-                    <mat-label>Valor Unitario</mat-label>
+                    <mat-label>Precio</mat-label>
                     <input matInput type="number" name="unitario" #unitario="ngModel" type="number"
-                        [(ngModel)]="servicio.unitValue" required>
+                        [(ngModel)]="product.price" required>
                 </mat-form-field>
                 <mat-form-field appearance="fill">
-                    <mat-label>Iva</mat-label>
-                    <input matInput name="iva" #iva="ngModel" type="number" [(ngModel)]="servicio.iva" required>
+                    <mat-label>Cantidad</mat-label>
+                    <input matInput name="iva" #iva="ngModel" type="number" [(ngModel)]="product.quantity" required>
                 </mat-form-field>
             </div>
-            <div class="inputs">
-                <mat-form-field appearance="fill" class="espacio">
-                    <mat-label>Valor Venta</mat-label>
-                    <input matInput name="venta" #venta="ngModel" type="number" [(ngModel)]="servicio.saleValue"
-                        required>
-                </mat-form-field>
-                <mat-form-field appearance="fill">
-                    <mat-label>Identificador</mat-label>
-                    <input matInput name="identificador" #identificador="ngModel" type="text" [disabled]="iden"
-                        [(ngModel)]="servicio.id" pTooltip="Código único que identifica el servicio" required>
-                </mat-form-field>
-            </div>
-            <div class="inputs">
-                <mat-form-field appearance="fill" class="espacio">
-                    <mat-label>Unitario/Tiempo</mat-label>
-                    <input matInput name="tiempo" #tiempo="ngModel" type="number" [(ngModel)]="servicio.unitTime"
-                        required>
-                </mat-form-field>
-                <mat-form-field appearance="fill">
-                    <mat-label>Tipo</mat-label>
-                    <mat-select name="tipo" #tipo="ngModel" [(ngModel)]="servicio.type" required [disabled]="disable">
-                        <mat-option value="turismo">Turismo</mat-option>
-                        <mat-option value="hoteleria">Hoteleria</mat-option>
-                        <mat-option value="restaurante">Restaurante</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
+            <mat-form-field appearance="fill" style="width: 100%;">
+                <mat-label>URL de PDF</mat-label>
+                <input matInput name="iva" #iva="ngModel" type="text" [(ngModel)]="product.pdf" required>
+            </mat-form-field>
             <div class="estado">
-                <mat-checkbox class="example-margin" [(ngModel)]="servicio.state" *ngIf="iden">Estado</mat-checkbox>
+                @if(hidden){
+                    <mat-checkbox class="example-margin" [(ngModel)]="product.state">Estado</mat-checkbox>
+                }
             </div>
             <mat-card>
                 <mat-card-title>Cargar Imágenes</mat-card-title>
                 <p-fileUpload name="demo[]" (uploadHandler)="onUpload($event)" [multiple]=true
                     chooseLabel="Subir Imagen" [customUpload]="true" [auto]="true" accept="image/*"
                     invalidFileTypeMessageSummary="Solo se puede pueden subir imagenes" [customUpload]="true"
-                    [auto]="true" accept=".png, .jpg, .svg, .bmp, .tiff, .jpeg" (onRemove)="eliminarImagen($event)">
+                    [auto]="true" accept=".png, .jpg, .svg, .bmp, .tiff, .jpeg" (onRemove)="eliminarImagen($event)" [fileLimit]="3">
                 </p-fileUpload>
-                <p *ngIf="iden" class="nota">*Nota: Cuando edites el servicio tendrás que subir nuevamente la imágenes
-                </p>
+                @if(hidden){
+                    <p class="nota">*Nota: Cuando edites el servicio tendrás que subir nuevamente la imágenes
+                    </p>
+                }
             </mat-card>
         </div>
 
