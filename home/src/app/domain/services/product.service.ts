@@ -41,27 +41,20 @@ export class ProductService implements IGeneric{
       img2: product.img[1], 
       img3: product.img[2], 
       pdf: product.pdf, 
-      description: product.pdf
+      description: product.description
     }
     return this.http.patch<Product>(
       ESystem.URL_TEMP + EProduct.UPDATE_PRODUCT + product.id, payload)
     .pipe(catchError(this.utilitiesService.handleError));
   }
   
-  editarQuantityProduct(product: Product) {
-    let payload = {
-      name: product.name,
-      quantity: product.quantity, 
-      price:product.price, 
-      state: product.state, 
-      img1: product.img[0], 
-      img2: product.img[1], 
-      img3: product.img[2], 
-      pdf: product.pdf, 
-      description: product.pdf
+  editarQuantityProduct(quantity: number, product: Product) {
+    console.log(quantity)
+    let payload: any = {
+      quantity: Number(quantity)
     }
-    return this.http.patch<Product>(
-      ESystem.URL_TEMP + EProduct.UPDATE_QUANTITY_PRODUCT + product.id, payload)
+    return this.http.post<Product>(
+      'http://127.0.0.1:8000/api/product/updateQua/' + product.id, Number(quantity))
     .pipe(catchError(this.utilitiesService.handleError));
   }
 

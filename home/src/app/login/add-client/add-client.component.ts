@@ -66,7 +66,8 @@ export class AddClientComponent implements OnInit{
             stepeer.next();
           }
         }, (err: any) => {
-          console.log(err);
+          this.dialogSpinner.close();
+          this.messageService.add({ severity: ESystem.TOAST_ERROR, summary: ESystem.TOAST_ERROR, detail: 'El usuario ingresado ya existe en el sistema'});
         })
       }else{
         this.messageService.add({ severity: ESystem.TOAST_ERROR, summary: ESystem.TOAST_ERROR, detail: 'Las contraseñas no son iguales'});

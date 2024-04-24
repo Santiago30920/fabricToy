@@ -31,9 +31,14 @@ export class PortalComponent implements OnInit {
       this.user = tempUser[0];
     }
     if(this.user.rol == '3'){
-
+      this.router.navigate([""]);
     }
   }
   ngOnInit(): void {
+  }
+  
+  closeSession(){
+    sessionStorage.clear();
+    this.router.navigate([""]);
   }
 }

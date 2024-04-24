@@ -1,0 +1,59 @@
+<mat-toolbar>
+    <button mat-icon-button class="example-icon">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <span>jugueteria</span>
+    <span class="example-spacer"></span>
+    @if(user.rol === '3'){
+    <button mat-mini-fab color="primary" (click)="logout()" aria-label="Example icon button with a menu icon">
+        <mat-icon>logout</mat-icon>
+    </button>
+    }
+    @if(!user.rol){
+    <button mat-mini-fab color="primary" routerLink="login" aria-label="Example icon button with a menu icon">
+        <mat-icon>login</mat-icon>
+    </button>
+    }
+
+</mat-toolbar>
+<div class="container">
+    @for (product of products; track product) {
+    <mat-card>
+        <div class="descargar">
+            @if(user.rol === '3'){
+                <button mat-icon-button color="accent" (click)="downloadPDF(product)"
+                    aria-label="Example icon button with a menu icon">
+                    <mat-icon>download</mat-icon>
+                </button>
+            }
+            <button mat-icon-button color="accent" (click)="showDialog(product)" aria-label="Example icon button with a menu icon">
+                <mat-icon>shopping_cart</mat-icon>
+            </button>
+        </div>
+        <mat-card-header>
+            <mat-card-title>{{product.name}}</mat-card-title>
+            <mat-card-subtitle>{{product.price | currency:'COP':'symbol-narrow':'1.0'}}</mat-card-subtitle>
+        </mat-card-header>
+        <p-carousel [value]="product.img" [numVisible]="1" [numScroll]="1" orientation="horizontal">
+            <ng-template let-img pTemplate="item">
+
+                <img src="{{ img }}" [alt]="product.name" class="product-image" />
+            </ng-template>
+        </p-carousel>
+        <p>{{product.description}}</p>
+    </mat-card>
+    }
+</div>
+
+<p-dialog header="Validar Compra" [(visible)]="visible" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+    <mat-form-field style="width: 100%;">
+        <mat-label>Cantidad</mat-label>
+        <input matInput placeholder="Cantiad" [(ngModel)]="quantity">
+    </mat-form-field>
+    <mat-form-field style="width: 100%;">
+        <mat-label>Total</mat-label>
+        <input matInput placeholder="Total" value="{{quantity * price}}" disabled>
+    </mat-form-field>
+    <button mat-flat-button color="primary" (click)="comprar()" style="width: 100%;">Comprar</button>
+</p-dialog>
+<p-toast></p-toast>

@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
   confirmar() {
     if (this.user.mail && this.user.password) {
       this.loginService.login(this.user).subscribe((response: any) => {
-        if(response.data.state === 1){
+        if(response.data[0].state === 1){
           sessionStorage.setItem("user", JSON.stringify(response.data))
           this.router.navigate(["home"]);
         }else{
