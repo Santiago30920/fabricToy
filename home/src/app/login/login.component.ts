@@ -49,9 +49,12 @@ export class LoginComponent implements OnInit {
   confirmar() {
     if (this.user.mail && this.user.password) {
       this.loginService.login(this.user).subscribe((response: any) => {
-
-        sessionStorage.setItem("user", JSON.stringify(response.data))
-        this.router.navigate(["home"]);
+        if(response.data.state === 1){
+          sessionStorage.setItem("user", JSON.stringify(response.data))
+          this.router.navigate(["home"]);
+        }else{
+          this.messageService.add({ severity: ESystem.TOAST_WARN, summary: ESystem.TOAST_WARN, detail: 'Su usuario se encuentra inactivo' });
+        }
       }, (err: any) => {
         console.log(err)
         this.messageService.add({ severity: ESystem.TOAST_ERROR, summary: ESystem.TOAST_ERROR, detail: 'Contraseña o correos invalidos' });

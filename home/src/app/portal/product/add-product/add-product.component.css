@@ -1,0 +1,96 @@
+.contenido {
+    margin: 0 auto;
+}
+
+.inputs {
+    width: 100%;
+    display: inline-flex;
+}
+
+.inputs>mat-form-field {
+    width: 47.5%;
+}
+
+h2 {
+    text-align: center;
+}
+
+.button {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.aceptar {
+    background-color: #256D85;
+    color: white;
+}
+
+.aceptar:hover {
+    color: black;
+    background-color: wheat;
+}
+
+.cancelar {
+    margin-left: 5px;
+    background-color: #256D85;
+    color: white;
+}
+
+.cancelar:hover {
+    color: black;
+    background-color: wheat;
+}
+
+.example-section {
+    margin: 12px 0;
+    text-align: center;
+}
+
+.example-margin {
+    margin: 0 12px;
+}
+
+.espacio {
+    margin-right: 5%;
+}
+
+.estado {
+    width: 100%;
+    text-align: center;
+}
+
+.estado>mat-checkbox {
+    margin: 0 12px;
+}
+
+.video {
+    text-align: center;
+    width: 100%;
+    height: 100%;
+}
+.nota{
+   color: gray;
+   font-style: italic; 
+   margin-top: 5px;
+}
+.colaboradores{
+    margin-top: 15px;
+    width: 100%;
+}
+.categoria{
+    margin-top: 15px;
+    width: 100%;
+}
+@media(max-width: 450px) {
+    .inputs>mat-form-field {
+        width: 100%;
+    }
+
+    .espacio {
+        margin-right: 0;
+    }
+
+    .inputs {
+        display: block;
+    }
+}

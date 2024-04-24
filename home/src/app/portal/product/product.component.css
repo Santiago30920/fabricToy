@@ -1,0 +1,61 @@
+.content{
+    margin: 0 auto;
+    width: 97%;
+    padding: 15px;
+    border: 1px solid black;
+    border-radius: 30px;
+    h2 {
+        text-align: center;
+    }
+    
+    table {
+        width: 100%;
+    }
+    
+    .mat-form-field {
+        font-size: 14px;
+        width: 100%;
+    }
+    
+    td, th {
+        width: 25%;
+    }
+    
+    .agregar {
+        display: inline-flex;
+    }
+    
+    .agregar>mat-form-field {
+        margin-top: -17px;
+        margin-left: 15px;
+    }
+    
+    th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
+        width: 20%;
+    }
+    
+    .mat-elevation-z8 {
+        overflow-x: auto;
+    }
+    
+    .contact{
+        width: 160px;
+        z-index: 1;
+        margin: 0 0 0 auto;
+        text-align: center;
+        position: relative;
+        top: 90%;
+    }
+    .button-contact{
+        background-color: #0099ff;
+        position: fixed;
+        z-index: 1;
+    }
+    .button-contact:hover{
+        background-color: white;
+        color: #0099ff;
+    }
+    .icon{
+        font-size: 27px;
+    }
+}

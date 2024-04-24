@@ -1,10 +1,10 @@
 export enum EProduct {
-    ID = 'id',
-    NAME = 'name',
-    QUANTITY = 'quantity',
-    PRICE = 'price',
-    STATE = 'state',
-    ACTION = 'action',
+    LABEL_ID = 'id',
+    LABEL_NAME = 'name',
+    LABEL_QUANTITY = 'quantity',
+    LABEL_PRICE = 'price',
+    LABEL_STATE = 'state',
+    LABEL_ACTION = 'action',
 
     CREATE_PRODUCT = 'product/crear',
     SEARCH_PRODUCT = 'product/consultar',
