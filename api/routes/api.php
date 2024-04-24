@@ -32,7 +32,7 @@ Route::patch('user/editarLogin/{id}', [userController::class, "updateLogin"]);
  * Routers para generar CRUD en producto
  */
 Route::get('product/consultar', [productController::class, "index"]);
-Route::post('product/verificar', [productController::class, "Verificar"]);
 Route::post('product/crear', [productController::class, "save"]);
 Route::patch('product/updateProduct/{id}', [productController::class, "updateProduct"]);
 Route::patch('product/updateQuantity/{id}', [productController::class, "updateQuantity"]);
+Route::post('product/updateQua/{id}', [productController::class, "updateQuantity"]);

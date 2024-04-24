@@ -9,35 +9,38 @@ use Exception;
 class userController extends Controller
 {
     public function index(){
-        $user = User::all();
+        $users = User::select('name', 'lastName', 'typeDocument', 'numberDocument', 'mail', 'state', 'rol')->get();
         return response()->json([
             "status" => 200,
             "message" => "user-get succesfully",
-            "data" => $user
+            "data" => $users
         ],200);
     }
-    public function Verificar(Request $request){
-        try{
-            $user = User::where('mail', '=',$request->mail)->where('password', '=', hash('sha256', $request->password))->get();
-            echo(hash('sha256', $request->password));
-            if(sizeof($user) != 0){
-                return response()->json([
-                    "status" => 200,
-                    "message" => "user-get succesfully",
-                    "data" => $user
-                ],200);
-            }else{
+    public function Verificar(Request $request) {
+        try {
+            $user = User::select('name', 'lastName', 'typeDocument', 'numberDocument', 'mail', 'state', 'rol')
+                        ->where('mail', '=', $request->mail)
+                        ->where('password', '=', hash('sha256', $request->password))
+                        ->get();
+    
+            if ($user->isEmpty()) {
                 return response()->json([
                     "status" => 404,
-                    "message" => "no se encontro ningún Usuario",
-                ],404);
+                    "message" => "No se encontró ningún usuario",
+                ], 404);
+            } else {
+                return response()->json([
+                    "status" => 200,
+                    "message" => "Usuario obtenido exitosamente",
+                    "data" => $user
+                ], 200);
             }
-        }catch(Exception $e){
+        } catch (Exception $e) {
             return response()->json([
                 "status" => 500,
                 "message" => "Ha ocurrido un error",
                 "messageLog" => $e->getMessage(),
-            ],500);
+            ], 500);
         }
     }
         /**
